@@ -1,16 +1,18 @@
 var express=require('express');
 var path=require("path");
 var app=express();
+
+app.use(express.static('public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 var knex = require('knex')({
     client: 'mysql',
     connection: {
-      host : '127.0.0.1',
-      user : 'root',
-      password : 'Joshuaj8!',
-      database : 'restaurant'
+      host : 'i2cpbxbi4neiupid.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: "ixaikiwnox3d5l3d",
+    password: "frho4fhq7hzcg59p",
+    database : "h5yfkr5ixjcgtlrn",
     }
   });
 
@@ -57,6 +59,6 @@ res.json({message:"I am data"})
 
 })
 
-app.listen(3000,()=>{
-    console.log("server started");
+app.listen(process.env.PORT || 3000,()=>{
+  console.log("Server started");
 })

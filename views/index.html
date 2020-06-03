@@ -2,43 +2,135 @@
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-
-<div class="row" style="margin: 100px;">
-    <div class="col-md-4 col-md-offset-4">
-     <h3>Order</h3>
-        <form method="POST" action="/neworder" id="orderform">
-
-<input type="text" class="form-control"  required id="ordername" name="ordername"><br>
-
-<button type="submit" class="btn btn-primary">Submit</button>
-
-        </form>
-        
-
-    </div>
-
-
-
-
-
+<style>
+body {
+    background-size: cover;
+    position: relative;
+    margin: 0px;
     
+}
+.banner {
+    width: 100%;
+}
+.cake-img img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+.wrapper {
+    padding: 60px 0;
+    background-image: url(images/image.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.order-item h3 {
+    TEXT-ALIGN: CENTER;
+    font-size: 46px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: arial;
+    color: #c40101;
+    padding: 30px 0;
+}
+form#orderform {
+    max-width: 500px;
+    margin: 0 auto 20px;
+    display: flex;
+}
 
-<div class="col-md-4">
+form#orderform input {
+    height: 46px;
+    border: 1px solid #c40101;
+    border-radius: 0;
+}
 
-    <ol id="orders">
+form#orderform button.btn.btn-primary {
+    background-color: #c40101;
+    border-radius: 0;
+    border: none;
+    padding: 0 26px;
+    font-weight: bold;
+}
 
-    </ol>
+div#orders {
+    margin: 20px 0 45px 0;
+}
+table, th, td {
+  border: 1px solid  #c40101;
+  PADDING: 10px 10px;
+}                                                                           
 
-</div>
+div#orders table th {                                                                                                 
+    font-weight: bold;
+    color: #000;
+    font-size: 18px;
+	width:50%;
+}
+div#orders table {
+    max-width: 60%;
+    margin: auto;
+}
+.wrapper .inner {
+    padding: 50px;
+    background-color: #fff;
+}
 
-
-</div>
-
-
+</style>
 </head>
-
 <body>
+	<div class="wrapper">
+	<div class="container inner">
+	<div class="row">
+		<div class="col-sm-6 cake-img">	
+			<img src="images/tenor.gif">
+		</div>
+		<div class="col-sm-6 cake-img">	
+			<img src="images/91ba45b523c27d4d1dc46cf7b30b26da.gif">
+		</div>
+		
+		<div class="col-md-12 order-item">
+		 <h3>Order From Here</h3>
+			<form method="POST" action="/neworder" id="orderform">
+
+				<input type="text" class="form-control"  required id="ordername" name="ordername"><br>
+
+				<button type="submit" class="btn btn-primary">Submit</button>
+
+			</form>
+		</div>
+		<div class="col-md-12">
+			<table  class="table" style="width:100%">
+			  <tr>
+				<th>Order ID</th>
+				<th>Order Name</th>
+				
+			  </tr>
+			 
+			 <tbody id="orders">
+
+			 </tbody>
+			</table>
+		 </div>	
+
+		
+		
+		<div class="col-sm-6 cake-img">	
+			<img src="images/birthday-cake-gif.gif">
+		</div>
+		<div class="col-sm-6 cake-img">	
+			<img src="images/tenor (1).gif">
+		</div>
+
+	</div>
+	</div>
+	</div>
+	
+</body>
+
+
+
+
 
     <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -59,7 +151,15 @@ function getData()
         let variable="";
         for(let i=0;i<result.length;i++)
         {
-            variable+=`<li>Order ID- ${result[i].idorder} Ordername - ${result[i].ordername}</li>`
+			if(i%2==0)
+			{
+				variable+=`<tr class="info"><td>${result[i].idorder}</td><td> ${result[i].ordername}</td></tr>`
+
+			}
+			else{
+				variable+=`<tr class="success"><td>${result[i].idorder}</td><td> ${result[i].ordername}</td></tr>`
+
+			}
         }
         
         $("#orders").html(variable);
@@ -96,7 +196,7 @@ function insertData(ordername)
     data:{ordername:ordername},
     dataType: "json",
     success: function(result){
-console.log(result);
+alert("Order Added");
         getData();
         
     }
@@ -124,6 +224,5 @@ insertData(values);
 
 
 
-</body>
 
 </html>
